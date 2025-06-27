@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Iconic Indian Films by Language</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to bottom right, #1a2a6c, #b21f1f, #fdbb2d);
+      padding: 1rem;
+      text-align: center;
+      color: #ffffff;
+    }
+    @media (max-width: 600px) {
+      h1 { font-size: 1.8rem; }
+      .lang-button { width: 100%; }
+      .movie-info { width: 95%; padding: 1rem; }
+    }
+    h1 {
+      color: #fff176;
+      font-size: 2.2rem;
+      margin-bottom: 1rem;
+    }
+    .button-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+      margin-bottom: 2rem;
+    }
+    .lang-button {
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border: none;
+      border-radius: 10px;
+      background-color: #ff9800;
+      color: #ffffff;
+      cursor: pointer;
+      transition: 0.3s ease;
+    }
+    .lang-button:hover {
+      background-color: #f57c00;
+    }
+    .movie-info {
+      background: #ffffff;
+      color: #333333;
+      padding: 2rem;
+      border-radius: 12px;
+      max-width: 700px;
+      margin: 0 auto;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    .poster {
+      max-width: 100%;
+      height: auto;
+      margin: 1rem 0;
+      border-radius: 10px;
+    }
+    .fun-fact {
+      background-color: #e1f5fe;
+      margin-top: 1rem;
+      padding: 1rem;
+      border-left: 5px solid #03a9f4;
+      border-radius: 6px;
+      font-style: italic;
+      color: #01579b;
+    }
+    #musicToggle {
+      position: fixed;
+      top: 10px;
+      right: 10px;
+      background: #ffca28;
+      color: #000;
+      padding: 0.5rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      z-index: 1000;
+    }
+  </style>
+</head>
+<body>
+  <button id="musicToggle" onclick="toggleMusic()">🎵 Play Music</button>
+  <h1>🎬 Discover Iconic Indian Films</h1>
+  <p>Select a language to explore a legendary film and test your knowledge!</p>
+
+  <div class="button-container">
+    <button class="lang-button" onclick="showInfo('hindi')">Hindi 🇮🇳</button>
+    <button class="lang-button" onclick="showInfo('marathi')">Marathi 🐘</button>
+    <button class="lang-button" onclick="showInfo('tamil')">Tamil 🎭</button>
+    <button class="lang-button" onclick="showInfo('telugu')">Telugu 🔥</button>
+    <button class="lang-button" onclick="showInfo('malayalam')">Malayalam 🌿</button>
+  </div>
+
+  <div class="movie-info" id="movieInfo"></div>
+
+  <audio id="bgMusic" src="https://cdn.pixabay.com/download/audio/2022/11/06/audio_9b32fa401b.mp3" loop preload="auto"></audio>
+
+  <script>
+    const posters = {
+      hindi: "https://upload.wikimedia.org/wikipedia/en/b/b6/Lagaan.jpg",
+      marathi: "https://upload.wikimedia.org/wikipedia/en/8/81/Shwaas_Movie_Poster.jpg",
+      tamil: "https://upload.wikimedia.org/wikipedia/en/b/b0/Visaranai_poster.jpg",
+      telugu: "https://upload.wikimedia.org/wikipedia/en/d/d7/RRR_Poster.jpg",
+      malayalam: "https://upload.wikimedia.org/wikipedia/en/d/da/Jallikattu_film_poster.jpg"
+    };
+
+    const movies = {
+      hindi: {
+        title: "Lagaan (2001)",
+        director: "Ashutosh Gowariker",
+        awards: "Oscar-nominated (Best Foreign Language Film)",
+        description: "A historic sports drama blending cricket and patriotism.",
+        funFact: "Aamir Khan refused multiple big roles just to focus on Lagaan!"
+      },
+      marathi: {
+        title: "Shwaas (2004)",
+        director: "Sandeep Sawant",
+        awards: "India's official Oscar entry",
+        description: "An emotional story of a grandfather and his blind grandson.",
+        funFact: "This low-budget film was shot in just 33 days!"
+      },
+      tamil: {
+        title: "Visaranai (2015)",
+        director: "Vetrimaaran",
+        awards: "Venice Film Festival – Amnesty Award",
+        description: "A raw, intense portrayal of police brutality.",
+        funFact: "Based on a real story narrated by an auto driver."
+      },
+      telugu: {
+        title: "RRR (2022)",
+        director: "S. S. Rajamouli",
+        awards: "Oscar & Golden Globe Winner (Best Song)",
+        description: "A global blockbuster with viral songs and action.",
+        funFact: "‘Naatu Naatu’ was shot in front of Ukraine's presidential palace!"
+      },
+      malayalam: {
+        title: "Jallikattu (2019)",
+        director: "Lijo Jose Pellissery",
+        awards: "India's Oscar entry",
+        description: "A wild, visually stunning film that amazed global audiences.",
+        funFact: "It holds the record for the longest single-take fight in Indian cinema!"
+      }
+    };
+
+    function showInfo(language) {
+      const movie = movies[language];
+      const posterUrl = posters[language];
+      const container = document.getElementById("movieInfo");
+      container.innerHTML = `
+        <h2>${movie.title}</h2>
+        <img src="${posterUrl}" alt="${movie.title} poster" class="poster">
+        <p><strong>Director:</strong> ${movie.director}</p>
+        <p><strong>Awards:</strong> ${movie.awards}</p>
+        <p>${movie.description}</p>
+        <div class="fun-fact">🎉 Fun Fact: ${movie.funFact}</div>
+      `;
+    }
+
+    function toggleMusic() {
+      const bg = document.getElementById('bgMusic');
+      const btn = document.getElementById('musicToggle');
+      if (bg.paused) {
+        bg.play();
+        btn.textContent = "🔇 Stop Music";
+      } else {
+        bg.pause();
+        btn.textContent = "🎵 Play Music";
+      }
+    }
+  </script>
+</body>
+</html>
